@@ -8,7 +8,7 @@ class galera::repo(
   $epel_needed = true,
 
   # Ubuntu-Debian/percona
-  $apt_percona_repo_location = 'http://repo.percona.com/apt/',
+  $apt_percona_repo_location = 'https://repo.percona.com/apt/',
   $apt_percona_repo_release = $::lsbdistcodename,
   $apt_percona_repo_repos = 'main',
   $apt_percona_repo_key = '4D1BB29D63D98E422B2113B19334A25F8507EFA5',
@@ -17,8 +17,8 @@ class galera::repo(
 
   # Ubuntu-Debian/mariadb
   $apt_mariadb_repo_location = $::operatingsystem ? {
-    'Debian' => 'http://mirror.aarnet.edu.au/pub/MariaDB/repo/5.5/debian',
-    default  => 'http://mirror.aarnet.edu.au/pub/MariaDB/repo/5.5/ubuntu',
+    'Debian' => 'https://mirror.aarnet.edu.au/pub/MariaDB/repo/5.5/debian',
+    default  => 'https://mirror.aarnet.edu.au/pub/MariaDB/repo/5.5/ubuntu',
   },
   $apt_mariadb_repo_release = $::lsbdistcodename,
   $apt_mariadb_repo_repos = 'main',
@@ -28,8 +28,8 @@ class galera::repo(
 
   # Ubuntu-Debian/codership
   $apt_codership_repo_location = $::operatingsystem ? {
-    'Debian' => 'http://releases.galeracluster.com/debian',
-    default  => 'http://releases.galeracluster.com/ubuntu',
+    'Debian' => 'https://releases.galeracluster.com/debian',
+    default  => 'https://releases.galeracluster.com/ubuntu',
   },
   $apt_codership_repo_release      = $::lsbdistcodename,
   $apt_codership_repo_repos        = 'main',
@@ -39,8 +39,8 @@ class galera::repo(
 
   #RedHat/percona
   $yum_percona_descr = "CentOS ${::operatingsystemmajrelease} - Percona",
-  $yum_percona_baseurl = "http://repo.percona.com/centos/${::operatingsystemmajrelease}/os/${::architecture}/",
-  $yum_percona_gpgkey = 'http://www.percona.com/downloads/percona-release/RPM-GPG-KEY-percona',
+  $yum_percona_baseurl = "https://repo.percona.com/centos/${::operatingsystemmajrelease}/os/${::architecture}/",
+  $yum_percona_gpgkey = 'https://www.percona.com/downloads/percona-release/RPM-GPG-KEY-percona',
   $yum_percona_enabled = 1,
   $yum_percona_gpgcheck = 1,
 
@@ -53,8 +53,8 @@ class galera::repo(
 
   #RedHat/codership
   $yum_codership_descr    = "CentOS ${::operatingsystemmajrelease} - Codership",
-  $yum_codership_baseurl  = "http://releases.galeracluster.com/centos/${::operatingsystemmajrelease}/${::architecture}/",
-  $yum_codership_gpgkey   = 'http://releases.galeracluster.com/GPG-KEY-galeracluster.com',
+  $yum_codership_baseurl  = "https://releases.galeracluster.com/centos/${::operatingsystemmajrelease}/${::architecture}/",
+  $yum_codership_gpgkey   = 'https://releases.galeracluster.com/GPG-KEY-galeracluster.com',
   $yum_codership_enabled  = 1,
   $yum_codership_gpgcheck = 1,
 ) {
@@ -62,7 +62,7 @@ class galera::repo(
 
   if ! $yum_mariadb_baseurl {
     $lower = downcase($::operatingsystem)
-    $real_yum_mariadb_baseurl = "http://yum.mariadb.org/5.5-galera/${lower}${::operatingsystemmajrelease}-amd64"
+    $real_yum_mariadb_baseurl = "https://yum.mariadb.org/5.5-galera/${lower}${::operatingsystemmajrelease}-amd64"
   } else {
     $real_yum_mariadb_baseurl = $yum_mariadb_baseurl
   }
@@ -130,7 +130,7 @@ class galera::repo(
         if $epel_needed {
           # Needed for socat package
           yumrepo { 'epel':
-            mirrorlist     => "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-${::os_maj_version}&arch=${::architecture}",
+            mirrorlist     => "https://mirrors.fedoraproject.org/mirrorlist?repo=epel-${::os_maj_version}&arch=${::architecture}",
             baseurl        => 'absent',
             failovermethod => 'priority',
             enabled        => '1',
